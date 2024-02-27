@@ -1,6 +1,6 @@
 # How to build a modern SPA client side almost frameworkless
 
-This is the companion repo for the tutorial [How to build a modern SPA client side almost frameworkless](https://fbedussi.github.io/blog/recipes/How-to-build-a-modern-SPA-client-side-almost-frameworkless---Introduction).
+This is the companion repo for the tutorial [How to build a modern SPA client side almost frameworkless](https://fbedussi.github.io/blogrecipes/How-to-build-a-modern-SPA-client-side-almost-frameworkless-Introduction).
 
 Every tutorial part has its own branch, so you can check out the code that refers to a specific part. 
 

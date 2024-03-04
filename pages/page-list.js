@@ -1,12 +1,25 @@
 import { render, html, signal } from 'https://cdn.jsdelivr.net/npm/uhtml/preactive.js'
+import {notes, addNote, delNote} from '../data.js'
+import {css} from '../css.js'
 
-const notes = signal([])
+const searchTerm = signal('')
 
+const TAG = 'page-list'
 customElements.define(
-  'page-list',
+  TAG,
   class extends HTMLElement {
     constructor() {
       super()
+
+      css`
+        ${TAG} {
+          article header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+        }
+      `
     }
 
     connectedCallback() {
@@ -19,7 +32,7 @@ customElements.define(
           onsubmit=${(ev) => {
             ev.preventDefault()
 
-            notes.value = notes.value.concat({
+            addNote({
               title: ev.target[0].value,
               text: ev.target[1].value,
             })
@@ -36,11 +49,17 @@ customElements.define(
 
           <button type="submit">add note</button>
         </form>
+
+        <input type="search" onkeyup=${e => searchTerm.value = e.target.value.toLocaleLowerCase()} />
+
         <div>
-          ${notes.value.map(note => html`
+          ${notes.value
+            .filter(note => (note.title + note.text).toLocaleLowerCase().includes(searchTerm.value))
+            .map(note => html`
             <article>
               <header>
                 <h1>${note.title}</h1>
+                <button onclick=${() => delNote(note.id)}>delete</button>
               </header>
               <main>${note.text}</main>
             </article>`)}

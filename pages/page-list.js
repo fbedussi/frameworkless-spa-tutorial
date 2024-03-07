@@ -56,13 +56,19 @@ customElements.define(
           ${notes.value
             .filter(note => (note.title + note.text).toLocaleLowerCase().includes(searchTerm.value))
             .map(note => html`
-            <article>
-              <header>
-                <h1>${note.title}</h1>
-                <button onclick=${() => delNote(note.id)}>delete</button>
-              </header>
-              <main>${note.text}</main>
-            </article>`)}
+                <article>
+                  <header>
+                    <h1>${note.title}</h1>
+                    <button onclick=${() => delNote(note.id)}>delete</button>
+                  </header>
+                  <main>${note.text}</main>
+                  <footer>
+                    <a href=${note.id}>
+                      Read more    
+                    </a>
+                  </footer>
+                </article>
+              `)}
         </div>
       </main>
     `

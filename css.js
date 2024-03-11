@@ -1,3 +1,9 @@
+/**
+ * 
+ * @param {TemplateStringsArray} strings 
+ * @param  {...string} values 
+ * @returns 
+ */
 export const css = (strings, ...values) => {
   var rules = strings[0]
   for (let i = 0; i < values.length; i++) {

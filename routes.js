@@ -1,3 +1,4 @@
+// @ts-ignore
 import { render, html } from 'https://cdn.jsdelivr.net/npm/uhtml/preactive.js'
 
 import './pages/page-list.js'
@@ -22,6 +23,11 @@ const loadSinglePage = (id) => {
   render(root, () => html`<page-single id=${id} />`)
 }
 
+/**
+ * 
+ * @param {URL} url 
+ * @returns Function
+ */
 const getPageLoader = url => {
   const matchSingle = url.pathname.match(/\/(.+)/)
 
@@ -33,7 +39,7 @@ const getPageLoader = url => {
   }
 }
 
-navigation.addEventListener('navigate', navigateEvent => {
+window.navigation.addEventListener('navigate', navigateEvent => {
   if (shouldNotIntercept(navigateEvent)) {
     return
   }

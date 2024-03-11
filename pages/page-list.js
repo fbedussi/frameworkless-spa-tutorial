@@ -1,3 +1,4 @@
+// @ts-ignore
 import { render, html, signal } from 'https://cdn.jsdelivr.net/npm/uhtml/preactive.js'
 import {notes, addNote, delNote} from '../data.js'
 import {css} from '../css.js'

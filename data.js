@@ -27,3 +27,9 @@ export const delNote = async (id) => {
 export const getNote = (id) => {
   return Promise.resolve(notes.value.find(note => note.id === id))
 }
+
+export const updateNote = async (note) => {
+  const updatedData = await notes.value.map(oldNote => oldNote.id === note.id ? note : oldNote)
+  notes.value = updatedData
+  saveUpdatedData(updatedData)
+}

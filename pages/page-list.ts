@@ -1,6 +1,6 @@
-import { render, html, signal } from 'https://cdn.jsdelivr.net/npm/uhtml/preactive.js'
-import {notes, addNote, delNote} from '../data.js'
-import {css} from '../css.js'
+import { render, html, signal } from 'uhtml/preactive'
+import {notes, addNote, delNote} from '../data.ts'
+import {css} from '../css.ts'
 
 const searchTerm = signal('')
 
@@ -29,15 +29,15 @@ customElements.define(
     render = () => html`
       <main class="container">
         <form
-          onsubmit=${(ev) => {
+          onsubmit=${(ev: SubmitEvent) => {
             ev.preventDefault()
 
             addNote({
-              title: ev.target[0].value,
-              text: ev.target[1].value,
-            })
-            ev.target[0].value = ''
-            ev.target[1].value = ''
+              title: ((ev.target as HTMLFormElement)[0] as HTMLInputElement).value,
+              text: ((ev.target as HTMLFormElement)[1] as HTMLTextAreaElement).value,
+            });
+            ((ev.target as HTMLFormElement)[0] as HTMLInputElement).value = '';
+            ((ev.target as HTMLFormElement)[1] as HTMLTextAreaElement).value = '';
           }}
         >
           <input
@@ -50,7 +50,7 @@ customElements.define(
           <button type="submit">add note</button>
         </form>
 
-        <input type="search" onkeyup=${e => searchTerm.value = e.target.value.toLocaleLowerCase()} />
+        <input type="search" onkeyup=${(e: KeyboardEvent) => searchTerm.value = (e.target as HTMLInputElement).value.toLocaleLowerCase()} />
 
         <div>
           ${notes.value

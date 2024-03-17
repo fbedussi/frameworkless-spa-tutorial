@@ -1,11 +1,16 @@
-import { render, html, signal } from 'https://cdn.jsdelivr.net/npm/uhtml/preactive.js'
-import {delNote, getNote, updateNote} from '../data.js'
-import {css} from '../css.js'
+import { render, html, signal } from 'uhtml/preactive'
+import {delNote, getNote, updateNote} from '../data.ts'
+import {css} from '../css.ts'
+import { Note } from '../model.ts'
 
 const TAG = 'page-single'
 customElements.define(
   TAG,
   class extends HTMLElement {
+    noteId: string | null = null
+    note = signal<Note | null>(null)
+    dirty = signal(false)
+
     constructor() {
       super()
 
@@ -21,29 +26,27 @@ customElements.define(
     }
 
     connectedCallback() {
-      this.id = this.getAttribute('id')
-      getNote(this.id).then(note => this.note.value = note)
-      this.note = signal(null)
+      this.noteId = this.getAttribute('id')
+      this.noteId && getNote(this.noteId).then(note => this.note.value = (note || null))
 
-      this.dirty = signal(false)
       render(this, this.render)
     }
 
     render = () => html`
       <main class="container">
-        <form onsubmit=${ev => {
+        <form onsubmit=${(ev: SubmitEvent) => {
           ev.preventDefault()
 
-          updateNote({
+          this.note.value && updateNote({
             ...this.note.value,
-            title: ev.target[0].value,
-            text: ev.target[2].value,
+            title: ((ev.target as HTMLFormElement)[0] as HTMLInputElement).value,
+            text: ((ev.target as HTMLFormElement)[2] as HTMLTextAreaElement).value,
           })
         }}>
           <article>
             <header>
               <h1><input value=${this.note.value?.title} onkeydown=${() => this.dirty.value = true}/></h1>
-              <button onclick=${() => delNote(this.note.value.id)}>delete</button>
+              <button onclick=${() => this.note.value && delNote(this.note.value.id)}>delete</button>
             </header>
             <main>
               <textarea value=${this.note.value?.text} onkeydown=${() => this.dirty.value = true}/>

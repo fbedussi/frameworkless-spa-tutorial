@@ -1,9 +1,9 @@
-import { render, html } from 'https://cdn.jsdelivr.net/npm/uhtml/preactive.js'
+import { render, html } from 'uhtml/preactive'
 
-import './pages/page-list.js'
-import './pages/page-single.js'
+import './pages/page-list.ts'
+import './pages/page-single.ts'
 
-function shouldNotIntercept(navigationEvent) {
+function shouldNotIntercept(navigationEvent: any) {
   return (
     !navigationEvent.canIntercept ||
     navigationEvent.hashChange ||
@@ -18,11 +18,11 @@ const loadListPage = () => {
   render(root, () => html`<page-list />`)
 }
 
-const loadSinglePage = (id) => {
+const loadSinglePage = (id: string) => {
   render(root, () => html`<page-single id=${id} />`)
 }
 
-const getPageLoader = url => {
+const getPageLoader = (url: URL) => {
   const matchSingle = url.pathname.match(/\/(.+)/)
 
   if (matchSingle) {
@@ -33,7 +33,11 @@ const getPageLoader = url => {
   }
 }
 
-navigation.addEventListener('navigate', navigateEvent => {
+declare global {
+  const navigation: any
+}
+
+navigation.addEventListener('navigate', (navigateEvent: any) => {
   if (shouldNotIntercept(navigateEvent)) {
     return
   }

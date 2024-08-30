@@ -2,7 +2,7 @@
  * 
  * @param {TemplateStringsArray} strings 
  * @param  {...string} values 
- * @returns 
+ * @returns {void}
  */
 export const css = (strings, ...values) => {
   var rules = strings[0]

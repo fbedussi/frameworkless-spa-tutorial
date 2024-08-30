@@ -26,7 +26,7 @@ const loadSinglePage = (id) => {
 /**
  * 
  * @param {URL} url 
- * @returns Function
+ * @returns {Function}
  */
 const getPageLoader = url => {
   const matchSingle = url.pathname.match(/\/(.+)/)

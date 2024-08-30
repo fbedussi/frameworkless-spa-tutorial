@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "checkJs": true
+    "checkJs": true,
+    "lib": ["ESNext", "DOM"],
   },
   "exclude": ["node_modules", "**/node_modules/*"]
 }

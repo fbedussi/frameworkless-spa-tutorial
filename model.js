@@ -5,12 +5,12 @@
  * @template T
  */
 
-/**
- * @typedef {Object} AddNotePayload
- * @property {string} title
- * @property {string} text
- */
+  /**
+   * @typedef {Object} AddNotePayload
+   * @property {string} title
+   * @property {string} text
+   */
 
-/**
- * @typedef {AddNotePayload & {id: string}} Note 
- */
+  /**
+   * @typedef {AddNotePayload & {id: string}} Note 
+   */
